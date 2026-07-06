@@ -18,7 +18,7 @@ DWG2SVGX is a Control Component let you convert DWG/DXF/DWF file into SVG direct
 - Color Output Support
 - Layer Preservation in Output
 - Configurable Hatch Output
-- Flexible Handling of SHX Fonts
+- Flexible Handling of SHX Fonts (new function)
 - Adjustable Line Weight Scaling
 
 ## User Guide
@@ -35,3 +35,20 @@ Start Menu → Windows System → Right-click "Command Prompt" → Run as Admini
 Manually register the DLL using command:
 ```cmd
 regsvr32 DWG2SVGX64.dll
+```
+#### Step 2: Test with Example VBScrip
+Use the provided sample script example.vbs in the Examples folder to verify functionality.
+Ensure the script executes without errors and generates the expected SVG output.
+
+**Sample Code**
+
+Sample Code (VB) for your reference:
+```
+Dim objImage
+Set objImage = CreateObject("DWG2SVGX.DWG2SVG")
+objImage.AddFontPath "E:\\font\\"
+objImage.ColorType = 0 ' 0 true color 1 white/black 2 gray
+objImage.LayoutType = 0 ' 0 all layout 1 model space 2 paper space
+objImage.SetSize 800,600
+objImage.Convert "E:\\test.dwg", "E:\\output\\"
+```
