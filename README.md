@@ -21,6 +21,9 @@ DWG2SVGX is a Control Component let you convert DWG/DXF/DWF file into SVG direct
 - Flexible Handling of SHX Fonts (new function)
 - Adjustable Line Weight Scaling
 
+### Free Trial Download Link
+https://github.com/autodwg/DWG2SVGX/releases/download/v1.0.0/DWG2SVGX-v1.0.0-Trial.zip 
+
 ## User Guide
 ### Getting Started
 Quick setup (The steps below are for 64-bit installation.)
