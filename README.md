@@ -39,7 +39,7 @@ Manually register the DLL using command:
 ```cmd
 regsvr32 DWG2SVGX64.dll
 ```
-#### Step 2: Test with Example VBScrip
+#### Step 2: Test with Example VBScript
 Use the provided sample script example.vbs in the Examples folder to verify functionality.
 Ensure the script executes without errors and generates the expected SVG output.
 
