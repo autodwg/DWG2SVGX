@@ -1,12 +1,6 @@
 # DWG2SVGX
 **AutoDWG DWG to SVG Component**
 
-## License Notice
-1. Free trial / non-commercial use: GNU LGPLv3
-2. Commercial production use, closed-source integration requires purchasing our commercial license.
-
-Contact info@autodwg.com for commercial authorization.
-
 ## AutoDWG DWG to SVG Control Component
 DWG2SVGX is a Control Component let you convert DWG/DXF/DWF file into SVG directly, without need of AutoCAD.
 
@@ -55,3 +49,8 @@ objImage.LayoutType = 0 ' 0 all layout 1 model space 2 paper space
 objImage.SetSize 800,600
 objImage.Convert "E:\\test.dwg", "E:\\output\\"
 ```
+## License Notice
+1. Free trial / non-commercial use: GNU LGPL v2.1
+2. Commercial production use, closed-source integration requires purchasing our commercial license.
+
+Contact info@autodwg.com for commercial authorization.
