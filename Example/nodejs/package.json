@@ -1,0 +1,12 @@
+﻿{
+  "name": "dwg2svgx-example",
+  "version": "1.0.0",
+  "description": "DWG to SVG conversion example using AutoDWG SDK",
+  "main": "example.js",
+  "scripts": {
+    "start": "node example.js"
+  },
+  "dependencies": {
+    "win32-ole": "*"
+  }
+}

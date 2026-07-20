@@ -1,0 +1,65 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "DWG to SVG Converter";
+    var hasResult = Model.Result != null;
+    var isSuccess = hasResult && Model.Result.Success;
+}
+<form method="post" enctype="multipart/form-data">
+    <div class="card"><h2>1. Select DWG File</h2>
+        <div class="form-group"><label for="DwgFile">Upload a DWG file:</label><input type="file" name="DwgFile" id="DwgFile" accept=".dwg" required /></div>
+    </div>
+    <div class="card">
+        <h2 style="cursor:pointer;user-select:none;" onclick="toggleSettings()">2. Conversion Settings<span id="toggleIcon" style="float:right;font-size:14px;color:#999;">@Html.Raw(hasResult?"&#9654;":"&#9660;")</span></h2>
+        <div id="settingsPanel" style="@(hasResult?"display:none;":"")">
+            <fieldset><legend>Basic</legend>
+                <div class="form-row">
+                    <div class="form-group"><label>Color Type</label><select name="ColorType"><option value="0">0 - True Color</option><option value="1">1 - Black &amp; White</option><option value="2">2 - Gray</option></select></div>
+                    <div class="form-group"><label>Layout Type</label><select name="LayoutType"><option value="0">0 - All Layouts</option><option value="1">1 - Model Space</option><option value="2">2 - Paper Space</option></select></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Width (px)</label><input type="number" name="Width" value="800" min="100" max="10000" /></div>
+                    <div class="form-group"><label>Height (px)</label><input type="number" name="Height" value="600" min="100" max="10000" /></div>
+                </div>
+                <div class="form-group"><label>Font Path</label><input type="text" name="FontPath" value="C:\fonts\" /></div>
+            </fieldset>
+            <fieldset style="margin-top:15px;"><legend>Advanced (optional)</legend>
+                <div class="form-row">
+                    <div class="form-group"><label>OutputLayer</label><input type="number" name="OutputLayer" value="0" min="0" max="10" /></div>
+                    <div class="form-group"><label>HatchType</label><input type="number" name="HatchType" value="0" min="0" max="10" /></div>
+                    <div class="form-group"><label>OutputType</label><input type="number" name="OutputType" value="0" min="0" max="10" /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>LineWeightScale</label><input type="number" name="LineWeightScale" value="" step="0.1" placeholder="1.0" /></div>
+                    <div class="form-group"><label>OutScale</label><input type="number" name="OutScale" value="" step="0.1" placeholder="1.0" /></div>
+                    <div class="form-group"><label>ConvertType</label><input type="text" name="ConvertType" placeholder="e.g. model" /></div>
+                </div>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="ConvertAsLayoutSizeOut" value="1" /> ConvertAsLayoutSizeOut</label>
+                    <label><input type="checkbox" name="ExplodeShxText" value="1" /> ExplodeShxText</label>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div style="text-align:center;margin:20px 0;"><button type="submit" class="btn" onclick="this.disabled=true;this.value='Converting...';this.form.submit();">Convert to SVG</button></div>
+</form>
+@if (hasResult)
+{
+    <div class="card" id="resultCard"><h2>3. Result</h2>
+        @if (isSuccess) {
+            <div class="result success">
+                <p style="font-size:16px;"><strong>@Model.Result.Message</strong></p>
+                @foreach (var f in Model.Result.OutputFiles) {
+                    <p style="margin:5px 0;"><a href="?handler=Download&file=@f" class="download-btn" style="font-size:14px;padding:8px 20px;">&#11015; @f</a></p>
+                }
+            </div>
+        } else { <div class="result error"><p><strong>Failed.</strong></p><p>@Model.Result.Message</p></div> }
+    </div>
+    <script>
+        document.getElementById('settingsPanel').style.display='none';document.getElementById('toggleIcon').innerHTML='&#9654;';
+        document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'start'});
+        var msg = @Json.Serialize(Model.Result.Message);
+        @if(isSuccess){<text>alert(msg);</text>}else{<text>alert("Conversion failed!\n\n" + msg);</text>}
+    </script>
+}
+<script>function toggleSettings(){var p=document.getElementById('settingsPanel'),i=document.getElementById('toggleIcon');if(p.style.display==='none'){p.style.display='block';i.innerHTML='&#9660;';}else{p.style.display='none';i.innerHTML='&#9654;';}}</script>
